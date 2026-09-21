@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="搜通网 - 您的一站式全网搜索与资源聚合平台。提供精准的搜索引擎入口、全网资源导航、实用工具查询及最新资讯汇总，助您快速找到所需信息。">
+    <meta name="keywords" content="soutong,搜通,搜索引擎,资源导航,全网搜索,工具箱,聚合搜索">
+    <title>soutong搜通网-全网资源聚合与智能搜索导航</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 布局容器 */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部导航 */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 首屏搜索区 */
+        .hero-section {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: linear-gradient(180deg, #eff6ff 0%, var(--bg-color) 100%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 56px 16px 24px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        /* 快速导航分类 */
+        .category-section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: #eff6ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+
+        /* 热门工具 */
+        .tools-section {
+            background: white;
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: background 0.2s;
+        }
+
+        .tool-item:hover {
+            background: #e2e8f0;
+        }
+
+        .tool-item span {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* 信息展示区 */
+        .info-section {
+            padding: 60px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .info-main h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .info-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .info-aside {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .info-aside h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .info-aside p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: auto;
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <span>soutong</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#">首页</a>
+                <a href="#">全网搜索</a>
+                <a href="#">资源导航</a>
+                <a href="#">实用工具</a>
+                <a href="#">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container hero-content">
+                <h1 class="hero-title">soutong 搜通网 - 连接信息的桥梁</h1>
+                <p class="hero-subtitle">整合全网优质资源，提供精准的搜索引擎入口与聚合导航服务。让搜索更简单，让获取信息更高效。</p>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="输入关键词搜索全网内容..." aria-label="搜索">
+                    <button class="search-btn" aria-label="开始搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="container category-section">
+            <div class="section-header">
+                <h2 class="section-title">热门资源分类</h2>
+            </div>
+            <div class="grid-cards">
+                <a href="#" class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h3>软件下载</h3>
+                    <p>海量正版软件资源，涵盖办公、设计、系统工具等类别，安全无毒，高速下载。</p>
+                </a>
+                <a href="#" class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>电子文档</h3>
+                    <p>提供学术论文、行业报告、电子书等文档资料，支持在线预览与格式转换。</p>
+                </a>
+                <a href="#" class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>设计素材</h3>
+                    <p>高清图片、矢量图标、背景模板等设计资源，助力创意设计与内容生产。</p>
+                </a>
+                <a href="#" class="card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3>行业资讯</h3>
+                    <p>聚合科技、互联网、财经等多领域最新资讯，助您把握行业动态与趋势。</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="tools-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">在线实用工具</h2>
+                </div>
+                <div class="tool-list">
+                    <a href="#" class="tool-item"><span>二维码生成器</span></a>
+                    <a href="#" class="tool-item"><span>单位转换</span></a>
+                    <a href="#" class="tool-item"><span>时间戳转换</span></a>
+                    <a href="#" class="tool-item"><span>图片压缩</span></a>
+                    <a href="#" class="tool-item"><span>文本格式化</span></a>
+                    <a href="#" class="tool-item"><span>正则表达式测试</span></a>
+                    <a href="#" class="tool-item"><span>JSON格式化</span></a>
+                    <a href="#" class="tool-item"><span>MD5加密</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container info-section">
+            <div class="info-grid">
+                <div class="info-main">
+                    <h2>为什么选择 soutong 搜通网？</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                        在信息爆炸的时代，如何快速、准确地找到所需资源成为了一大挑战。soutong 搜通网致力于为用户提供聚合式的搜索体验，通过精心的分类与整理，减少无效搜索时间，提升信息获取效率。
+                    </p>
+                    <ul class="info-list">
+                        <li><strong>资源聚合：</strong> 整合多个垂直领域的优质资源入口，一站式满足您的搜索需求。</li>
+                        <li><strong>精准导航：</strong> 人工审核与分类，确保链接有效，分类清晰，方便快速跳转。</li>
+                        <li><strong>实用工具：</strong> 提供日常高频使用的在线工具，无需安装软件，即开即用。</li>
+                        <li><strong>持续更新：</strong> 定期更新资源库与工具集，紧跟技术发展步伐，保证内容的时效性。</li>
+                    </ul>
+                </div>
+                <aside class="info-aside">
+                    <h3>使用提示</h3>
+                    <p>使用本站搜索功能时，建议使用准确的关键词以获得更精准的结果。所有下载链接均经过安全检测，请放心使用。</p>
+                    <p>如果您发现链接失效或有更好的资源推荐，欢迎通过反馈渠道联系我们。</p>
+                    <div style="margin-top: 20px; font-size: 0.85rem; color: #94a3b8;">
+                        <p>© 2023 soutong.com</p>
+                        <p>保留所有权利。</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="font-size: 1.2rem; color: white;">
+                    <span style="color: white;">soutong</span>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="#">隐私政策</a>
+                <a href="#">服务条款</a>
+                <a href="#">联系我们</a>
+                <a href="#">加入我们</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
