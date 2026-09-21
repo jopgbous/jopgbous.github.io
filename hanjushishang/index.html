@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="韩剧时尚王下载 - 提供高清韩剧《时尚王》全集在线观看、剧情介绍、角色分析及高清资源下载指南，包含国语配音、画质选择及安全观看建议。">
+    <meta name="keywords" content="韩剧时尚王下载,韩剧时尚王,韩剧下载,韩剧资源,时尚王全集">
+    <title>韩剧时尚王下载-高清韩剧资源与在线观看指南</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --border-radius: 8px;
+            --spacing-unit: 1rem;
+            --max-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: var(--max-width);
+            margin: 40px auto;
+            padding: 0 var(--spacing-unit);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border: 1px solid #eee;
+        }
+
+        .info-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Episode List */
+        .episode-list {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .episode-item:last-child {
+            border-bottom: none;
+        }
+
+        .episode-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .ep-number {
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 80px;
+        }
+
+        .ep-title {
+            flex-grow: 1;
+            padding: 0 20px;
+        }
+
+        .ep-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Download Guide */
+        .guide-section {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        }
+
+        .guide-steps {
+            counter-reset: step;
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .guide-steps li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 25px;
+        }
+
+        .guide-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+        }
+
+        .guide-steps h4 {
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        /* Safety Notice */
+        .safety-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            color: #bdc3c7;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav {
+                display: none; /* Simplified for single file demo */
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .episode-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .ep-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="#" class="logo">韩剧<span>资源站</span></a>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">韩剧推荐</a></li>
+                <li><a href="#">下载指南</a></li>
+                <li><a href="#">帮助中心</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-btn">☰</button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>韩剧时尚王下载</h1>
+        <p>探索《时尚王》高清全集资源。为您提供国语配音版与原声版下载指引，以及专业的画质选择建议。</p>
+        <a href="#download-guide" class="btn">立即查看下载资源</a>
+    </div>
+</section>
+
+<main>
+    <!-- 剧集基本信息 -->
+    <section id="intro">
+        <h2 class="section-title">剧集简介</h2>
+        <div class="info-grid">
+            <article class="info-card">
+                <h3>基本信息</h3>
+                <p><strong>剧名：</strong>韩剧《时尚王》</p>
+                <p><strong>类型：</strong>励志、爱情、剧情</p>
+                <p><strong>主演：</strong>金桢勋、韩彩英、金贤重等</p>
+                <p><strong>集数：</strong>24集</p>
+            </article>
+            <article class="info-card">
+                <h3>观看亮点</h3>
+                <div class="tags">
+                    <span class="tag">韩国顶级设计</span>
+                    <span class="tag">热血励志</span>
+                    <span class="tag">职场成长</span>
+                    <span class="tag">经典韩剧</span>
+                </div>
+                <p style="margin-top: 10px;">讲述了服装设计专业的学生姜俊尚（金桢勋 饰）与时尚界女王洪世娜（韩彩英 饰）之间的爱恨纠葛，以及他在时尚圈奋斗的励志故事。</p>
+            </article>
+            <article class="info-card">
+                <h3>搜索意图分析</h3>
+                <p>用户搜索“韩剧时尚王下载”通常希望找到高清、无水印、字幕清晰（特别是国语字幕）的资源。本站提供基于官方授权渠道的合法观看与下载指引。</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- 剧集列表 -->
+    <section id="episodes">
+        <h2 class="section-title">全集列表</h2>
+        <div class="episode-list">
+            <div class="episode-item">
+                <span class="ep-number">第 01 集</span>
+                <span class="ep-title">初入时尚界</span>
+                <div class="ep-actions">
+                    <a href="#" class="btn btn-sm btn-outline">在线观看</a>
+                    <a href="#" class="btn btn-sm">下载高清</a>
+                </div>
+            </div>
+            <div class="episode-item">
+                <span class="ep-number">第 02 集</span>
+                <span class="ep-title">挑战与机遇</span>
+                <div class="ep-actions">
+                    <a href="#" class="btn btn-sm btn-outline">在线观看</a>
+                    <a href="#" class="btn btn-sm">下载高清</a>
+                </div>
+            </div>
+            <div class="episode-item">
+                <span class="ep-number">第 03 集</span>
+                <span class="ep-title">初次相遇</span>
+                <div class="ep-actions">
+                    <a href="#" class="btn btn-sm btn-outline">在线观看</a>
+                    <a href="#" class="btn btn-sm">下载高清</a>
+                </div>
+            </div>
+            <div class="episode-item">
+                <span class="ep-number">第 04 集</span>
+                <span class="ep-title">误会加深</span>
+                <div class="ep-actions">
+                    <a href="#" class="btn btn-sm btn-outline">在线观看</a>
+                    <a href="#" class="btn btn-sm">下载高清</a>
+                </div>
+            </div>
+            <div class="episode-item">
+                <span class="ep-number">第 05 集</span>
+                <span class="ep-title">设计大赛</span>
+                <div class="ep-actions">
+                    <a href="#" class="btn btn-sm btn-outline">在线观看</a>
+                    <a href="#" class="btn btn-sm">下载高清</a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="#" class="btn btn-outline" style="border: none; color: var(--primary-color);">加载更多剧集</a>
+        </div>
+    </section>
+
+    <!-- 下载指南 -->
+    <section id="download-guide">
+        <h2 class="section-title">韩剧时尚王下载指南</h2>
+        <div class="guide-section">
+            <ul class="guide-steps">
+                <li>
+                    <h4>选择清晰度</h4>
+                    <p>根据您的网络环境和设备性能选择画质。建议使用 1080P 或 720P 格式以保证观看体验。如果是手机观看，720P 流畅度更佳。</p>
+                </li>
+                <li>
+                    <h4>确认字幕语言</h4>
+                    <p>下载前请确认资源包含您需要的字幕版本。本站资源主要提供中文字幕，部分版本支持国语配音，请查看资源详情页。</p>
+                </li>
+                <li>
+                    <h4>安全下载与解压</h4>
+                    <p>点击下载按钮后，请确保网络连接稳定。下载完成后，使用 WinRAR 或 7-Zip 等工具解压文件，注意不要在解压过程中修改文件名。</p>
+                </li>
+            </ul>
+            
+            <div class="safety-box">
+                <strong>⚠️ 安全提示：</strong>
+                <p style="margin-top: 5px;">请勿下载来源不明的破解版或修改版文件，以免电脑感染病毒或泄露个人隐私。推荐使用官方正版平台进行观看。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见问题 FAQ -->
+    <section id="faq">
+        <h2 class="section-title">常见问题解答</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Q: 韩剧时尚王国语配音版哪里有？</h3>
+                <p>A: 目前网络上存在部分粉丝自制配音版本。本站主要提供原声带中文字幕版本，这是最主流的观看方式，能更好地体验韩语原声和演员表演。</p>
+            </div>
+            <div class="info-card">
+                <h3>Q: 下载速度慢怎么办？</h3>
+                <p>A: 下载速度受限于服务器带宽和您的网络环境。建议在非高峰时段下载，或检查您的下载工具（如IDM、迅雷等）的线程设置。</p>
+            </div>
+            <div class="info-card">
+                <h3>Q: 资源支持哪些播放器？</h3>
+                <p>A: 本站提供的下载资源通用性较强，支持主流播放器如 PotPlayer、VLC、Windows Media Player 以及手机端的 MX Player、IINA 等。</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="#">关于我们</a>
+        <a href="#">免责声明</a>
+        <a href="#">隐私政策</a>
+        <a href="#">联系合作</a>
+    </div>
+    <p class="copyright">Copyright © 2023 韩剧资源站. All Rights Reserved.</p>
+    <p class="copyright" style="margin-top: 10px; font-size: 0.75rem;">本站仅提供资源索引与观看指引，所有版权归原制作公司所有。</p>
+</footer>
+
+</body>
+</html>
