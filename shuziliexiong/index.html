@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="数字猎凶者 - 深度网络安全攻防与数字取证实战指南。提供黑客攻防技术解析、数字取证流程、数据恢复教程及网络犯罪案例分析，帮助安全从业者提升专业技能。">
+    <meta name="keywords" content="数字猎凶者, 网络安全, 黑客攻防, 数字取证, 网络犯罪, 数据恢复, 安全运维">
+    <title>数字猎凶者-网络安全攻防与数字取证实战指南</title>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+    <style>
+        :root {
+            --bg-body: #0a0e17;
+            --bg-card: #111625;
+            --bg-card-hover: #1a2133;
+            --text-main: #e0e6ed;
+            --text-muted: #94a3b8;
+            --accent-primary: #00f0ff;
+            --accent-secondary: #7000ff;
+            --accent-red: #ff2a6d;
+            --border-color: #2a3447;
+            --font-stack: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            --spacing-unit: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--accent-primary), var(--text-main));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.15) 0%, rgba(10, 14, 23, 0) 70%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero-text h1 .highlight {
+            color: var(--accent-primary);
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .stat-item p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .code-block {
+            width: 90%;
+            height: 90%;
+            background: #0d1117;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #d1d5db;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .code-line {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .code-keyword { color: var(--accent-secondary); }
+        .code-func { color: var(--accent-primary); }
+        .code-string { color: var(--accent-red); }
+        .code-comment { color: #6b7280; }
+
+        /* Core Capabilities */
+        .capabilities {
+            padding: 80px 0;
+            background: var(--bg-card);
+        }
+
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cap-card {
+            background: var(--bg-body);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cap-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cap-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cap-card:hover::before {
+            opacity: 1;
+        }
+
+        .cap-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .cap-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .cap-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Case Studies */
+        .cases {
+            padding: 80px 0;
+        }
+
+        .case-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .case-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            align-items: center;
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .case-date {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 42, 109, 0.1);
+            border-radius: 6px;
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        .case-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .tags {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        /* Tools & Resources */
+        .tools {
+            padding: 80px 0;
+            background: var(--bg-card);
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 240, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--accent-primary);
+        }
+
+        .tool-card h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: var(--bg-body);
+            color: var(--text-muted);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-question {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Footer */
+        footer {
+            background: #05080f;
+            padding: 60px 0 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 2.5rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .nav-container nav {
+                display: none;
+            }
+
+            .case-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span>&lt;/&gt;</span> 数字猎凶者
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#capabilities" class="active">核心能力</a></li>
+                    <li><a href="#cases">实战案例</a></li>
+                    <li><a href="#tools">工具库</a></li>
+                    <li><a href="#faq">安全须知</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn btn-outline">登录</a>
+                <a href="#" class="btn btn-primary">加入社区</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="badge">网络安全 · 数字取证 · 攻防对抗</span>
+                    <h1>在数据洪流中<br>捕捉隐藏的<span class="highlight">罪恶</span>与<span class="highlight">真相</span></h1>
+                    <p>数字猎凶者专注于网络犯罪侦查、电子数据取证与高级攻防演练。我们提供专业的技术支持与深度分析，为数字世界的正义与安全保驾护航。</p>
+                    <div class="cta-group">
+                        <a href="#cases" class="btn btn-primary">浏览真实案例</a>
+                        <a href="#tools" class="btn btn-outline" style="margin-left: 10px;">探索取证工具</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h3>500+</h3>
+                            <p>成功取证案例</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>98%</h3>
+                            <p>数据恢复成功率</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>24/7</h3>
+                            <p>安全响应支持</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-block">
+                        <span class="code-line"><span class="code-keyword">import</span> digital_forensics <span class="code-keyword">as</span> df</span>
+                        <span class="code-line"><span class="code-keyword">from</span> cyber_crime <span class="code-keyword">import</span> investigation</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-comment"># 初始化猎凶引擎</span></span>
+                        <span class="code-line">engine = df.Investigator(mode=<span class="code-string">'deep_scan'</span>)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-comment"># 扫描恶意日志与隐藏数据</span></span>
+                        <span class="code-line">results = engine.scan(target=<span class="code-string">'/root/malware'</span>)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="code-keyword">if</span> results.threat_level > 0:</span>
+                        <span class="code-line">    print(<span class="code-string">"警告：检测到高危数字足迹"</span>)</span>
+                        <span class="code-line">    df.capture_evidence(results)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section id="capabilities" class="capabilities">
+            <div class="container">
+                <h2 class="section-title">核心技术能力</h2>
+                <div class="cap-grid">
+                    <div class="cap-card">
+                        <div class="cap-icon">🔍</div>
+                        <h3>数字取证</h3>
+                        <p>从硬盘、内存、移动设备中提取有效证据。支持文件恢复、日志分析、元数据分析，确保证据链完整且符合法律规范。</p>
+                    </div>
+                    <div class="cap-card">
+                        <div class="cap-icon">🛡️</div>
+                        <h3>网络攻防演练</h3>
+                        <p>模拟APT攻击与高级持续性威胁（APT）。通过红蓝对抗，发现系统漏洞，加固防御体系，提升企业安全韧性。</p>
+                    </div>
+                    <div class="cap-card">
+                        <div class="cap-icon">🕵️</div>
+                        <h3>网络犯罪侦查</h3>
+                        <p>追踪网络攻击来源，分析攻击路径。利用流量分析、IP定位及大数据关联分析，锁定犯罪分子身份与意图。</p>
+                    </div>
+                    <div class="cap-card">
+                        <div class="cap-icon">🔒</div>
+                        <h3>安全合规审计</h3>
+                        <p>帮助企业通过等保测评、ISO27001及GDPR合规检查。提供全面的安全漏洞扫描与风险评估报告。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies -->
+        <section id="cases" class="cases">
+            <div class="container">
+                <h2 class="section-title">实战案例研究</h2>
+                <div class="case-list">
+                    <div class="case-item">
+                        <div class="case-date">2023.10</div>
+                        <div class="case-content">
+                            <h3>金融诈骗数据恢复项目</h3>
+                            <p>针对某大型电商平台遭受的勒索软件攻击，我们成功恢复了被加密的数百万条用户交易记录，并追踪到了攻击者的加密密钥。</p>
+                            <div class="tags">
+                                <span class="tag">数据恢复</span>
+                                <span class="tag">勒索软件</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-date">2023.08</div>
+                        <div class="case-content">
+                            <h3>企业内部泄密溯源</h3>
+                            <p>协助某科技公司调查核心代码外泄事件。通过内存取证技术，定位了内部员工的违规操作行为，并制定了数据防泄露（DLP）方案。</p>
+                            <div class="tags">
+                                <span class="tag">内存取证</span>
+                                <span class="tag">DLP方案</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-item">
+                        <div class="case-date">2023.05</div>
+                        <div class="case-content">
+                            <h3>供应链攻击防御</h3>
+                            <p>针对第三方供应商的恶意代码注入进行拦截。通过深度包检测（DPI）技术，在数据传输阶段识别并阻断了含有后门的恶意更新包。</p>
+                            <div class="tags">
+                                <span class="tag">供应链安全</span>
+                                <span class="tag">DPI技术</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools -->
+        <section id="tools" class="tools">
+            <div class="container">
+                <h2 class="section-title">开源工具推荐</h2>
+                <div class="tool-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">⚡</div>
+                        <h4>CASE (Case File System)</h4>
+                        <p>专为数字取证设计的文件系统，支持实时监控与日志记录，确保取证过程的不可篡改性。</p>
+                        <a href="#" class="badge">GitHub</a>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📊</div>
+                        <h4>ForensicHarvester</h4>
+                        <p>自动化电子数据收集工具，可从海量网络日志中快速提取敏感关键词与异常行为模式。</p>
+                        <a href="#" class="badge">GitHub</a>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🧬</div>
+                        <h4>HashDeep</h4>
+                        <p>强大的文件校验与重复数据删除工具，用于验证文件完整性及检测被替换的恶意文件。</p>
+                        <a href="#" class="badge">GitHub</a>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🧱</div>
+                        <h4>Wireshark</h4>
+                        <p>全球最流行的网络协议分析器，用于捕获和分析网络流量，还原攻击者的通信细节。</p>
+                        <a href="#" class="badge">官网</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq">
+            <div class="container">
+                <h2 class="section-title">常见问题解答</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">数字取证的法律效力如何？</div>
+                        <div class="faq-answer">
+                            <p>数字取证必须遵循严格的操作规范（如ISO 17025），确保证据的原始性、完整性和可验证性。在合法合规的前提下，经过专业流程提取的数据可作为法庭证据使用。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">企业需要定期进行安全审计吗？</div>
+                        <div class="faq-answer">
+                            <p>非常必要。随着网络威胁的日益复杂，定期进行渗透测试和漏洞扫描能帮助企业及时发现防御短板，避免遭受数据泄露或业务中断。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">如何应对勒索软件攻击？</div>
+                        <div class="faq-answer">
+                            <p>首要原则是断网隔离以防止扩散。切勿轻易支付赎金。应立即启动应急响应流程，利用备份恢复数据，并配合取证团队分析攻击源头。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span>&lt;/&gt;</span> 数字猎凶者
+                    </a>
+                    <p>致力于提供最前沿的网络安全解决方案，守护数字世界的每一份信任。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">服务流程</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">媒体报道</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>技术支持</h4>
+                    <ul>
+                        <li><a href="#">漏洞提交</a></li>
+                        <li><a href="#">技术文档</a></li>
+                        <li><a href="#">API 服务</a></li>
+                        <li><a href="#">社区论坛</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li>contact@digitalhunter.com</li>
+                        <li>021-12345678</li>
+                        <li>上海市浦东新区科技园</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 数字猎凶者. All rights reserved. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                
+                // Close other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Toggle current item
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
